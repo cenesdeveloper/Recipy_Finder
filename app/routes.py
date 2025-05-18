@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from app.models import User
 from app.forms import RegisterForm, LoginForm
+from app.utils import search_recipes
 
 main = Blueprint('main', __name__)
 
@@ -48,7 +49,14 @@ def logout():
     logout_user()
     return redirect(url_for('main.login'))
 
-@main.route('/search')
+@main.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    return render_template('search.html')
+    query = request.args.get('query', '')
+    diet = request.args.get('diet')
+    cuisine = request.args.get('cuisine')
+    intolerances = request.args.get('intolerances')
+
+    recipes = search_recipes(query, diet, intolerances, cuisine) if query else []
+
+    return render_template('search.html', recipes=recipes)

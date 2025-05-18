@@ -1,0 +1,11 @@
+.recipe-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.recipe-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 220px;
+    text-align: center;
+}
