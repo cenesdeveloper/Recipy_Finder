@@ -1,3 +1,5 @@
+import pprint
+
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -57,6 +59,9 @@ def search():
     cuisine = request.args.get('cuisine')
     intolerances = request.args.get('intolerances')
 
-    recipes = search_recipes(query, diet, intolerances, cuisine) if query else []
+    recipes = []
+    if query:
+        recipes = search_recipes(query, diet, intolerances, cuisine)
+        pprint.pprint(recipes)  # 👈 prints to your terminal
 
     return render_template('search.html', recipes=recipes)

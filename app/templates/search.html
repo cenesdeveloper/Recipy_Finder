@@ -12,12 +12,38 @@
 
 {% if recipes %}
 <h3>Results:</h3>
-<div class="recipe-grid">
+<div class="recipe-grid d-flex flex-wrap gap-3 mt-3">
     {% for recipe in recipes %}
-    <div class="recipe-card">
-        <h4>{{ recipe.title }}</h4>
-        <img src="{{ recipe.image }}" width="200">
-        <a href="{{ recipe.sourceUrl }}" target="_blank">View Recipe</a>
+    <div class="card" style="width: 18rem;">
+        <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ recipe.id }}">
+                View Recipe
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal{{ recipe.id }}" tabindex="-1" aria-labelledby="modalLabel{{ recipe.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel{{ recipe.id }}">{{ recipe.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ recipe.image }}" class="img-fluid mb-3" alt="{{ recipe.title }}">
+                    <p><strong>Ready in:</strong> {{ recipe.readyInMinutes }} minutes</p>
+                    <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+                    <div class="summary">
+                        {{ recipe.summary | safe }}
+                    </div>
+                    <a href="{{ recipe.spoonacularSourceUrl }}" target="_blank" class="btn btn-secondary">Open Full Recipe</a>
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>
