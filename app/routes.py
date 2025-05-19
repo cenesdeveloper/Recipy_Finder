@@ -64,9 +64,9 @@ def search():
     recipes = []
     if query:
         recipes = search_recipes(query, diet, intolerances, cuisine)
-        pprint.pprint(recipes)
+    saved_ids = [str(b.recipe_id) for b in RecipeBookmark.query.filter_by(user_id=current_user.id).all()]
 
-    return render_template('search.html', recipes=recipes)
+    return render_template('search.html', recipes=recipes, saved_ids=saved_ids)
 
 @main.route('/bookmarks')
 @login_required

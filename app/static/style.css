@@ -1,15 +1,34 @@
+/* Layout for recipe cards */
 .recipe-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
+
+/* Card appearance */
 .recipe-card {
     border: 1px solid #ccc;
     padding: 10px;
     width: 220px;
     text-align: center;
+    transition: transform 0.2s ease-in-out;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
+.recipe-card:hover {
+    transform: scale(1.02);
+}
+
+/* Recipe image */
+img {
+    border-radius: 6px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Summary text and links */
 .summary {
     font-size: 0.95rem;
     line-height: 1.6;
@@ -26,4 +45,17 @@
 
 .summary b {
     font-weight: 600;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 768px) {
+    .recipe-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Flash message margin */
+.alert {
+    margin-top: 1rem;
 }

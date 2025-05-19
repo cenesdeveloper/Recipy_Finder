@@ -14,11 +14,10 @@
 <h3>Results:</h3>
 <div class="recipe-grid d-flex flex-wrap gap-3 mt-3">
     {% for recipe in recipes %}
-    <div class="card" style="width: 18rem;">
+    <div class="card recipe-card" style="width: 18rem;">
         <img src="{{ recipe.image }}" class="card-img-top" alt="{{ recipe.title }}">
         <div class="card-body">
             <h5 class="card-title">{{ recipe.title }}</h5>
-            <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ recipe.id }}">
                 View Recipe
             </button>
@@ -41,6 +40,8 @@
                         {{ recipe.summary | safe }}
                     </div>
                     <a href="{{ recipe.spoonacularSourceUrl }}" target="_blank" class="btn btn-secondary">Open Full Recipe</a>
+
+                    {% if recipe.id|string not in saved_ids %}
                     <form method="POST" action="{{ url_for('main.bookmark') }}">
                         <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
                         <input type="hidden" name="title" value="{{ recipe.title }}">
@@ -48,6 +49,9 @@
                         <input type="hidden" name="source_url" value="{{ recipe.spoonacularSourceUrl }}">
                         <button type="submit" class="btn btn-success mt-2">Save to Bookmarks</button>
                     </form>
+                    {% else %}
+                    <p class="text-muted mt-2"><em>Already bookmarked</em></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
