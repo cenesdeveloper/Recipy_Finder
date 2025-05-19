@@ -1,3 +1,5 @@
+import os
+
 from app import create_app, db
 from app.models import User
 from werkzeug.security import generate_password_hash
@@ -16,4 +18,5 @@ if __name__ == '__main__':
             db.session.add(demo_user)
             db.session.commit()
 
-    app.run(debug=True)
+    if os.environ.get("FLASK_ENV") != "production":
+        app.run(debug=True)
