@@ -27,13 +27,14 @@ def register():
         existing_user = User.query.filter_by(username=form.username.data).first()
         if existing_user:
             flash('Username already taken. Please choose another.', 'danger')
-    else:
-        hashed_password = generate_password_hash(form.password.data)
-        user = User(username=form.username.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Account created! Please log in.', 'success')
-        return redirect(url_for('main.login'))
+        else:
+            hashed_password = generate_password_hash(form.password.data)
+            user = User(username=form.username.data, password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+            flash('Account created! Please log in.', 'success')
+            return redirect(url_for('main.login'))
+
     return render_template('register.html', form=form)
 
 @main.route('/login', methods=['GET', 'POST'])
