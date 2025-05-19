@@ -71,9 +71,5 @@ Password: demo123
 ---
 
 ## 📸 Screenshots
-_Add screenshots of your UI here (login, search, modal, bookmarks)_
+<img width="1105" alt="recipe" src="https://github.com/user-attachments/assets/f4676e9d-f35c-438a-9972-3f35e55080d8" />
 
----
-
-## 📄 License
-MIT License — free to use and modify!
