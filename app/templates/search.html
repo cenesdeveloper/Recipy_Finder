@@ -41,6 +41,13 @@
                         {{ recipe.summary | safe }}
                     </div>
                     <a href="{{ recipe.spoonacularSourceUrl }}" target="_blank" class="btn btn-secondary">Open Full Recipe</a>
+                    <form method="POST" action="{{ url_for('main.bookmark') }}">
+                        <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                        <input type="hidden" name="title" value="{{ recipe.title }}">
+                        <input type="hidden" name="image_url" value="{{ recipe.image }}">
+                        <input type="hidden" name="source_url" value="{{ recipe.spoonacularSourceUrl }}">
+                        <button type="submit" class="btn btn-success mt-2">Save to Bookmarks</button>
+                    </form>
                 </div>
             </div>
         </div>
