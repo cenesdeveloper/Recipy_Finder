@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
 from app.models import User
-from app.forms import RegisterForm, LoginForm
+from app.forms import RegisterForm, LoginForm, UpdateAccountForm
 from app.utils import search_recipes
 from app.models import RecipeBookmark
 from flask import request
@@ -110,3 +110,19 @@ def bookmark():
         flash('Recipe already bookmarked.', 'info')
 
     return redirect(url_for('main.search'))
+
+@main.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if not check_password_hash(current_user.password, form.current_password.data):
+            flash("Current password is incorrect.", "danger")
+        else:
+            if form.username.data:
+                current_user.username = form.username.data
+            if form.new_password.data:
+                current_user.password = generate_password_hash(form.new_password.data)
+            db.session.commit()
+            flash("Account updated successfully.", "success")
+    return render_template('account.html', form=form)

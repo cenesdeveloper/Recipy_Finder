@@ -15,7 +15,7 @@ def search_recipes(query, diet=None, intolerances=None, cuisine=None):
         "diet": diet,
         "intolerances": intolerances,
         "cuisine": cuisine,
-        "number": 1,
+        "number": 5,
         "addRecipeInformation": True
     }
 
