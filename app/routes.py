@@ -126,3 +126,9 @@ def account():
             db.session.commit()
             flash("Account updated successfully.", "success")
     return render_template('account.html', form=form)
+
+@main.route('/initdb')
+def initdb():
+    from app import db
+    db.create_all()
+    return '✅ Database initialized!'
