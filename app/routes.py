@@ -24,6 +24,10 @@ def register():
 
     form = RegisterForm()
     if form.validate_on_submit():
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            flash('Username already taken. Please choose another.', 'danger')
+    else:
         hashed_password = generate_password_hash(form.password.data)
         user = User(username=form.username.data, password=hashed_password)
         db.session.add(user)
@@ -126,9 +130,3 @@ def account():
             db.session.commit()
             flash("Account updated successfully.", "success")
     return render_template('account.html', form=form)
-
-@main.route('/initdb')
-def initdb():
-    from app import db
-    db.create_all()
-    return '✅ Database initialized!'
